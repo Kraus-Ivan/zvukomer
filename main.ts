@@ -6,7 +6,6 @@ input.onButtonPressed(Button.B, function btnB() {
     basic.showIcon(IconNames.EigthNote)
     music.playTone(262, delka_tonu)
     basic.clearScreen()
-    console.log(delka_tonu)
 })
 // OPAKOVANE PREHRATI ULOZENEHO TONU
 input.onButtonPressed(Button.A, function btnA() {
@@ -37,7 +36,6 @@ input.onLogoEvent(TouchButtonEvent.Released, function ukonceni_mereni() {
         stav_mereni = false
     }
     
-    console.log(cas_mereni)
     if (delka_tonu > 0) {
         vyhodnoceni()
     } else {

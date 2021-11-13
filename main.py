@@ -6,7 +6,6 @@ def btnB():
     basic.show_icon(IconNames.EIGTH_NOTE)
     music.play_tone(frequency = 262, ms = delka_tonu)
     basic.clear_screen()
-    print(delka_tonu)
 input.on_button_pressed(Button.B, btnB)
 
 #OPAKOVANE PREHRATI ULOZENEHO TONU
@@ -38,7 +37,6 @@ def ukonceni_mereni():
     if stav_mereni == True:
         cas_mereni = (konecny_cas - pocatecni_cas)
         stav_mereni = False
-    print(cas_mereni)
     
     if delka_tonu > 0:
         vyhodnoceni()
