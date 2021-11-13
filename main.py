@@ -3,7 +3,9 @@ delka_tonu = 0
 def btnB():
     global delka_tonu
     delka_tonu = randint(1000, 10000)
+    basic.show_icon(IconNames.EIGTH_NOTE)
     music.play_tone(frequency = 262, ms = delka_tonu)
+    basic.clear_screen()
     print(delka_tonu)
 input.on_button_pressed(Button.B, btnB)
 
@@ -11,7 +13,9 @@ input.on_button_pressed(Button.B, btnB)
 def btnA():
     global delka_tonu
     if delka_tonu > 0:
+        basic.show_icon(IconNames.EIGTH_NOTE)
         music.play_tone(frequency = 262, ms = delka_tonu)
+        basic.clear_screen()
 input.on_button_pressed(Button.A, btnA)
 
 #MERENI CASU UZIVATELE
@@ -23,16 +27,24 @@ def spusteni_mereni():
     global pocatecni_cas, stav_mereni
     stav_mereni = True
     pocatecni_cas = control.millis()
+    obrazek_hodin()
 input.on_logo_event(TouchButtonEvent.TOUCHED, spusteni_mereni)
 
 def ukonceni_mereni():
-    global pocatecni_cas, stav_mereni, cas_mereni
+    global pocatecni_cas, stav_mereni, cas_mereni, delka_tonu
     konecny_cas = control.millis()
+    basic.clear_screen()
+
     if stav_mereni == True:
         cas_mereni = (konecny_cas - pocatecni_cas)
         stav_mereni = False
     print(cas_mereni)
-    vyhodnoceni()
+    
+    if delka_tonu > 0:
+        vyhodnoceni()
+    else:
+        basic.show_icon(IconNames.NO)
+        soundExpression.sad.play()
 input.on_logo_event(TouchButtonEvent.RELEASED, ukonceni_mereni)
 
 #VYHODNOCENI
@@ -53,3 +65,12 @@ def vyhodnoceni():
         """)
         soundExpression.sad.play()
 
+#OBRAZEK
+def obrazek_hodin():
+    basic.show_leds("""
+    # # # # #
+    . # # # .
+    . . # . .
+    . # # # .
+    # # # # #
+    """)

@@ -3,14 +3,18 @@ let delka_tonu = 0
 input.onButtonPressed(Button.B, function btnB() {
     
     delka_tonu = randint(1000, 10000)
+    basic.showIcon(IconNames.EigthNote)
     music.playTone(262, delka_tonu)
+    basic.clearScreen()
     console.log(delka_tonu)
 })
 // OPAKOVANE PREHRATI ULOZENEHO TONU
 input.onButtonPressed(Button.A, function btnA() {
     
     if (delka_tonu > 0) {
+        basic.showIcon(IconNames.EigthNote)
         music.playTone(262, delka_tonu)
+        basic.clearScreen()
     }
     
 })
@@ -22,17 +26,25 @@ input.onLogoEvent(TouchButtonEvent.Touched, function spusteni_mereni() {
     
     stav_mereni = true
     pocatecni_cas = control.millis()
+    obrazek_hodin()
 })
 input.onLogoEvent(TouchButtonEvent.Released, function ukonceni_mereni() {
     
     let konecny_cas = control.millis()
+    basic.clearScreen()
     if (stav_mereni == true) {
         cas_mereni = konecny_cas - pocatecni_cas
         stav_mereni = false
     }
     
     console.log(cas_mereni)
-    vyhodnoceni()
+    if (delka_tonu > 0) {
+        vyhodnoceni()
+    } else {
+        basic.showIcon(IconNames.No)
+        soundExpression.sad.play()
+    }
+    
 })
 // VYHODNOCENI
 // POKUD cas_mereni JE VETSI JAK delka_tonu, ZOBRAZI SE ">" (ODCHYLKA 0,5 SEKUNDY)
@@ -55,5 +67,16 @@ function vyhodnoceni() {
         soundExpression.sad.play()
     }
     
+}
+
+// OBRAZEK
+function obrazek_hodin() {
+    basic.showLeds(`
+    # # # # #
+    . # # # .
+    . . # . .
+    . # # # .
+    # # # # #
+    `)
 }
 
